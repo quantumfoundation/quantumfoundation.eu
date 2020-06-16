@@ -1,0 +1,971 @@
+<!DOCTYPE html>
+<html lang="en-US" class="no-js">
+
+<!-- Mirrored from quantumfoundation.eu/en/neuroimages_technologies/embed/ by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 25 Apr 2020 15:33:16 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<head>
+	<title>Neuroimages technologies &#8211; Quantum Foundation</title>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+			<script type="text/javascript">
+			window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/11\/72x72\/","ext":".png","svgUrl":"https:\/\/s.w.org\/images\/core\/emoji\/11\/svg\/","svgExt":".svg","source":{"wpemoji":"http:\/\/quantumfoundation.eu\/wp-includes\/js\/wp-emoji.js?ver=5.0.8","twemoji":"http:\/\/quantumfoundation.eu\/wp-includes\/js\/twemoji.js?ver=5.0.8"}};
+			( function( window, document, settings ) {
+	var src, ready, ii, tests;
+
+	/*
+	 * Create a canvas element for testing native browser support
+	 * of emoji.
+	 */
+	var canvas = document.createElement( 'canvas' );
+	var context = canvas.getContext && canvas.getContext( '2d' );
+
+	/**
+	 * Check if two sets of Emoji characters render the same.
+	 *
+	 * @param set1 array Set of Emoji characters.
+	 * @param set2 array Set of Emoji characters.
+	 * @returns {boolean} True if the two sets render the same.
+	 */
+	function emojiSetsRenderIdentically( set1, set2 ) {
+		var stringFromCharCode = String.fromCharCode;
+
+		// Cleanup from previous test.
+		context.clearRect( 0, 0, canvas.width, canvas.height );
+		context.fillText( stringFromCharCode.apply( this, set1 ), 0, 0 );
+		var rendered1 = canvas.toDataURL();
+
+		// Cleanup from previous test.
+		context.clearRect( 0, 0, canvas.width, canvas.height );
+		context.fillText( stringFromCharCode.apply( this, set2 ), 0, 0 );
+		var rendered2 = canvas.toDataURL();
+
+		return rendered1 === rendered2;
+	}
+
+	/**
+	 * Detect if the browser supports rendering emoji or flag emoji. Flag emoji are a single glyph
+	 * made of two characters, so some browsers (notably, Firefox OS X) don't support them.
+	 *
+	 * @since 4.2.0
+	 *
+	 * @param type {String} Whether to test for support of "flag" or "emoji".
+	 * @return {Boolean} True if the browser can render emoji, false if it cannot.
+	 */
+	function browserSupportsEmoji( type ) {
+		var isIdentical;
+
+		if ( ! context || ! context.fillText ) {
+			return false;
+		}
+
+		/*
+		 * Chrome on OS X added native emoji rendering in M41. Unfortunately,
+		 * it doesn't work when the font is bolder than 500 weight. So, we
+		 * check for bold rendering support to avoid invisible emoji in Chrome.
+		 */
+		context.textBaseline = 'top';
+		context.font = '600 32px Arial';
+
+		switch ( type ) {
+			case 'flag':
+				/*
+				 * Test for UN flag compatibility. This is the least supported of the letter locale flags,
+				 * so gives us an easy test for full support.
+				 *
+				 * To test for support, we try to render it, and compare the rendering to how it would look if
+				 * the browser doesn't render it correctly ([U] + [N]).
+				 */
+				isIdentical = emojiSetsRenderIdentically(
+					[ 55356, 56826, 55356, 56819 ],
+					[ 55356, 56826, 8203, 55356, 56819 ]
+				);
+
+				if ( isIdentical ) {
+					return false;
+				}
+
+				/*
+				 * Test for English flag compatibility. England is a country in the United Kingdom, it
+				 * does not have a two letter locale code but rather an five letter sub-division code.
+				 *
+				 * To test for support, we try to render it, and compare the rendering to how it would look if
+				 * the browser doesn't render it correctly (black flag emoji + [G] + [B] + [E] + [N] + [G]).
+				 */
+				isIdentical = emojiSetsRenderIdentically(
+					[ 55356, 57332, 56128, 56423, 56128, 56418, 56128, 56421, 56128, 56430, 56128, 56423, 56128, 56447 ],
+					[ 55356, 57332, 8203, 56128, 56423, 8203, 56128, 56418, 8203, 56128, 56421, 8203, 56128, 56430, 8203, 56128, 56423, 8203, 56128, 56447 ]
+				);
+
+				return ! isIdentical;
+			case 'emoji':
+				/*
+				 * She's the hero Emoji deserves, but not the one it needs right now.
+				 *
+				 * To test for support, try to render a new emoji (female superhero),
+				 * then compare it to how it would look if the browser doesn't render it correctly
+				 * (superhero + female sign).
+				 */
+				isIdentical = emojiSetsRenderIdentically(
+					[55358, 56760, 9792, 65039],
+					[55358, 56760, 8203, 9792, 65039]
+				);
+				return ! isIdentical;
+		}
+
+		return false;
+	}
+
+	function addScript( src ) {
+		var script = document.createElement( 'script' );
+
+		script.src = src;
+		script.defer = script.type = 'text/javascript';
+		document.getElementsByTagName( 'head' )[0].appendChild( script );
+	}
+
+	tests = Array( 'flag', 'emoji' );
+
+	settings.supports = {
+		everything: true,
+		everythingExceptFlag: true
+	};
+
+	for( ii = 0; ii < tests.length; ii++ ) {
+		settings.supports[ tests[ ii ] ] = browserSupportsEmoji( tests[ ii ] );
+
+		settings.supports.everything = settings.supports.everything && settings.supports[ tests[ ii ] ];
+
+		if ( 'flag' !== tests[ ii ] ) {
+			settings.supports.everythingExceptFlag = settings.supports.everythingExceptFlag && settings.supports[ tests[ ii ] ];
+		}
+	}
+
+	settings.supports.everythingExceptFlag = settings.supports.everythingExceptFlag && ! settings.supports.flag;
+
+	settings.DOMReady = false;
+	settings.readyCallback = function() {
+		settings.DOMReady = true;
+	};
+
+	if ( ! settings.supports.everything ) {
+		ready = function() {
+			settings.readyCallback();
+		};
+
+		if ( document.addEventListener ) {
+			document.addEventListener( 'DOMContentLoaded', ready, false );
+			window.addEventListener( 'load', ready, false );
+		} else {
+			window.attachEvent( 'onload', ready );
+			document.attachEvent( 'onreadystatechange', function() {
+				if ( 'complete' === document.readyState ) {
+					settings.readyCallback();
+				}
+			} );
+		}
+
+		src = settings.source || {};
+
+		if ( src.concatemoji ) {
+			addScript( src.concatemoji );
+		} else if ( src.wpemoji && src.twemoji ) {
+			addScript( src.twemoji );
+			addScript( src.wpemoji );
+		}
+	}
+
+} )( window, document, window._wpemojiSettings );
+		</script>
+			<style type="text/css">
+	html, body {
+	padding: 0;
+	margin: 0;
+}
+
+body {
+	font-family: sans-serif;
+}
+
+/* Text meant only for screen readers */
+.screen-reader-text {
+	border: 0;
+	clip: rect(1px, 1px, 1px, 1px);
+	-webkit-clip-path: inset(50%);
+	clip-path: inset(50%);
+	height: 1px;
+	margin: -1px;
+	overflow: hidden;
+	padding: 0;
+	position: absolute;
+	width: 1px;
+	word-wrap: normal !important;
+}
+
+/* Dashicons */
+.dashicons {
+	display: inline-block;
+	width: 20px;
+	height: 20px;
+	background-color: transparent;
+	background-repeat: no-repeat;
+	background-size: 20px;
+	background-position: center;
+	transition: background .1s ease-in;
+	position: relative;
+	top: 5px;
+}
+
+.dashicons-no {
+	background-image: url("data:image/svg+xml;charset=utf8,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%2020%2020%27%3E%3Cpath%20d%3D%27M15.55%2013.7l-2.19%202.06-3.42-3.65-3.64%203.43-2.06-2.18%203.64-3.43-3.42-3.64%202.18-2.06%203.43%203.64%203.64-3.42%202.05%202.18-3.64%203.43z%27%20fill%3D%27%23fff%27%2F%3E%3C%2Fsvg%3E");
+}
+
+.dashicons-admin-comments {
+	background-image: url("data:image/svg+xml;charset=utf8,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%2020%2020%27%3E%3Cpath%20d%3D%27M5%202h9q.82%200%201.41.59T16%204v7q0%20.82-.59%201.41T14%2013h-2l-5%205v-5H5q-.82%200-1.41-.59T3%2011V4q0-.82.59-1.41T5%202z%27%20fill%3D%27%2382878c%27%2F%3E%3C%2Fsvg%3E");
+}
+
+.wp-embed-comments a:hover .dashicons-admin-comments {
+	background-image: url("data:image/svg+xml;charset=utf8,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%2020%2020%27%3E%3Cpath%20d%3D%27M5%202h9q.82%200%201.41.59T16%204v7q0%20.82-.59%201.41T14%2013h-2l-5%205v-5H5q-.82%200-1.41-.59T3%2011V4q0-.82.59-1.41T5%202z%27%20fill%3D%27%230073aa%27%2F%3E%3C%2Fsvg%3E");
+}
+
+.dashicons-share {
+	background-image: url("data:image/svg+xml;charset=utf8,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%2020%2020%27%3E%3Cpath%20d%3D%27M14.5%2012q1.24%200%202.12.88T17.5%2015t-.88%202.12-2.12.88-2.12-.88T11.5%2015q0-.34.09-.69l-4.38-2.3Q6.32%2013%205%2013q-1.24%200-2.12-.88T2%2010t.88-2.12T5%207q1.3%200%202.21.99l4.38-2.3q-.09-.35-.09-.69%200-1.24.88-2.12T14.5%202t2.12.88T17.5%205t-.88%202.12T14.5%208q-1.3%200-2.21-.99l-4.38%202.3Q8%209.66%208%2010t-.09.69l4.38%202.3q.89-.99%202.21-.99z%27%20fill%3D%27%2382878c%27%2F%3E%3C%2Fsvg%3E");
+	display: none;
+}
+
+.js .dashicons-share {
+	display: inline-block;
+}
+
+.wp-embed-share-dialog-open:hover .dashicons-share {
+	background-image: url("data:image/svg+xml;charset=utf8,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%2020%2020%27%3E%3Cpath%20d%3D%27M14.5%2012q1.24%200%202.12.88T17.5%2015t-.88%202.12-2.12.88-2.12-.88T11.5%2015q0-.34.09-.69l-4.38-2.3Q6.32%2013%205%2013q-1.24%200-2.12-.88T2%2010t.88-2.12T5%207q1.3%200%202.21.99l4.38-2.3q-.09-.35-.09-.69%200-1.24.88-2.12T14.5%202t2.12.88T17.5%205t-.88%202.12T14.5%208q-1.3%200-2.21-.99l-4.38%202.3Q8%209.66%208%2010t-.09.69l4.38%202.3q.89-.99%202.21-.99z%27%20fill%3D%27%230073aa%27%2F%3E%3C%2Fsvg%3E");
+}
+
+.wp-embed {
+	padding: 25px;
+	font-size: 14px;
+	font-weight: 400;
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+	line-height: 1.5;
+	color: #82878c;
+	background: #fff;
+	border: 1px solid #e5e5e5;
+	box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
+	/* Clearfix */
+	overflow: auto;
+	zoom: 1;
+}
+
+.wp-embed a {
+	color: #82878c;
+	text-decoration: none;
+}
+
+.wp-embed a:hover {
+	text-decoration: underline;
+}
+
+.wp-embed-featured-image {
+	margin-bottom: 20px;
+}
+
+.wp-embed-featured-image img {
+	width: 100%;
+	height: auto;
+	border: none;
+}
+
+.wp-embed-featured-image.square {
+	float: left;
+	max-width: 160px;
+	margin-right: 20px;
+}
+
+.wp-embed p {
+	margin: 0;
+}
+
+p.wp-embed-heading {
+	margin: 0 0 15px;
+	font-weight: 600;
+	font-size: 22px;
+	line-height: 1.3;
+}
+
+.wp-embed-heading a {
+	color: #32373c;
+}
+
+.wp-embed .wp-embed-more {
+	color: #b4b9be;
+}
+
+.wp-embed-footer {
+	display: table;
+	width: 100%;
+	margin-top: 30px;
+}
+
+.wp-embed-site-icon {
+	position: absolute;
+	top: 50%;
+	left: 0;
+	transform: translateY(-50%);
+	height: 25px;
+	width: 25px;
+	border: 0;
+}
+
+.wp-embed-site-title {
+	font-weight: 600;
+	line-height: 25px;
+}
+
+.wp-embed-site-title a {
+	position: relative;
+	display: inline-block;
+	padding-left: 35px;
+}
+
+.wp-embed-site-title,
+.wp-embed-meta {
+	display: table-cell;
+}
+
+.wp-embed-meta {
+	text-align: right;
+	white-space: nowrap;
+	vertical-align: middle;
+}
+
+.wp-embed-comments,
+.wp-embed-share {
+	display: inline;
+}
+
+.wp-embed-meta a:hover {
+	text-decoration: none;
+	color: #0073aa;
+}
+
+.wp-embed-comments a {
+	line-height: 25px;
+	display: inline-block;
+}
+
+.wp-embed-comments + .wp-embed-share {
+	margin-left: 10px;
+}
+
+.wp-embed-share-dialog {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background-color: #222;
+	background-color: rgba(10, 10, 10, 0.9);
+	color: #fff;
+	opacity: 1;
+	transition: opacity .25s ease-in-out;
+}
+
+.wp-embed-share-dialog.hidden {
+	opacity: 0;
+	visibility: hidden;
+}
+
+.wp-embed-share-dialog-open,
+.wp-embed-share-dialog-close {
+	margin: -8px 0 0;
+	padding: 0;
+	background: transparent;
+	border: none;
+	cursor: pointer;
+	outline: none;
+}
+
+.wp-embed-share-dialog-open .dashicons,
+.wp-embed-share-dialog-close .dashicons {
+	padding: 4px;
+}
+
+.wp-embed-share-dialog-open .dashicons {
+	top: 8px;
+}
+
+.wp-embed-share-dialog-open:focus .dashicons,
+.wp-embed-share-dialog-close:focus .dashicons {
+	box-shadow: 0 0 0 1px #5b9dd9, 0 0 2px 1px rgba(30, 140, 190, .8);
+	border-radius: 100%;
+}
+
+.wp-embed-share-dialog-close {
+	position: absolute;
+	top: 20px;
+	right: 20px;
+	font-size: 22px;
+}
+
+.wp-embed-share-dialog-close:hover {
+	text-decoration: none;
+}
+
+.wp-embed-share-dialog-close .dashicons {
+	height: 24px;
+	width: 24px;
+	background-size: 24px;
+}
+
+.wp-embed-share-dialog-content {
+	height: 100%;
+	transform-style: preserve-3d;
+	overflow: hidden;
+}
+
+.wp-embed-share-dialog-text {
+	margin-top: 25px;
+	padding: 20px;
+}
+
+.wp-embed-share-tabs {
+	margin: 0 0 20px;
+	padding: 0;
+	list-style: none;
+}
+
+.wp-embed-share-tab-button {
+	display: inline-block;
+}
+
+.wp-embed-share-tab-button button {
+	margin: 0;
+	padding: 0;
+	border: none;
+	background: transparent;
+	font-size: 16px;
+	line-height: 1.3;
+	color: #aaa;
+	cursor: pointer;
+	transition: color .1s ease-in;
+}
+
+.wp-embed-share-tab-button [aria-selected="true"] {
+	color: #fff;
+}
+
+.wp-embed-share-tab-button button:hover {
+	color: #fff;
+}
+
+.wp-embed-share-tab-button + .wp-embed-share-tab-button {
+	margin: 0 0 0 10px;
+	padding: 0 0 0 11px;
+	border-left: 1px solid #aaa;
+}
+
+.wp-embed-share-tab[aria-hidden="true"] {
+	display: none;
+}
+
+p.wp-embed-share-description {
+	margin: 0;
+	font-size: 14px;
+	line-height: 1;
+	font-style: italic;
+	color: #aaa;
+}
+
+.wp-embed-share-input {
+	box-sizing: border-box;
+	width: 100%;
+	border: none;
+	height: 28px;
+	margin: 0 0 10px 0;
+	padding: 0 5px;
+	font-size: 14px;
+	font-weight: 400;
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+	line-height: 1.5;
+	resize: none;
+	cursor: text;
+}
+
+textarea.wp-embed-share-input {
+	height: 72px;
+}
+
+html[dir="rtl"] .wp-embed-featured-image.square {
+	float: right;
+	margin-right: 0;
+
+	margin-left: 20px;
+}
+
+html[dir="rtl"] .wp-embed-site-title a {
+	padding-left: 0;
+	padding-right: 35px;
+}
+
+html[dir="rtl"] .wp-embed-site-icon {
+	margin-right: 0;
+	margin-left: 10px;
+	left: auto;
+	right: 0;
+}
+
+html[dir="rtl"] .wp-embed-meta {
+	text-align: left;
+}
+
+html[dir="rtl"] .wp-embed-footer {
+}
+
+html[dir="rtl"] .wp-embed-share {
+	margin-left: 0;
+	margin-right: 10px;
+}
+
+html[dir="rtl"] .wp-embed-share-dialog-close {
+	right: auto;
+	left: 20px;
+}
+
+html[dir="rtl"] .wp-embed-share-tab-button + .wp-embed-share-tab-button {
+	margin: 0 10px 0 0;
+	padding: 0 11px 0 0;
+	border-left: none;
+	border-right: 1px solid #aaa;
+}
+	</style>
+	<meta name='robots' content='noindex,follow' />
+<link rel="canonical" href="../index.html" />
+<!--n2css--><style type="text/css">
+img.wp-smiley,
+img.emoji {
+	display: inline !important;
+	border: none !important;
+	box-shadow: none !important;
+	height: 1em !important;
+	width: 1em !important;
+	margin: 0 .07em !important;
+	vertical-align: -0.1em !important;
+	background: none !important;
+	padding: 0 !important;
+}
+</style>
+<!--[if lte IE 8]>
+<link rel='stylesheet' id='wp-embed-template-ie-css'  href='http://quantumfoundation.eu/wp-includes/css/wp-embed-template-ie.css?ver=5.0.8' type='text/css' media='all' />
+<![endif]-->
+</head>
+<body class="post-template-default single single-post postid-1160 single-format-standard has-header-image colors-light">
+	<div class="wp-embed post-1160 post type-post status-publish format-standard has-post-thumbnail hentry category-uncategorized">
+		
+		<p class="wp-embed-heading">
+			<a href="../index.html" target="_top">
+				Neuroimages technologies			</a>
+		</p>
+
+					<div class="wp-embed-featured-image square">
+				<a href="../index.html" target="_top">
+					<img width="350" height="211" src="../../../wp-content/uploads/2018/04/PAT_woman_bg-2-350x211.png" class="attachment-woocommerce_single size-woocommerce_single" alt="" srcset="http://quantumfoundation.eu/wp-content/uploads/2018/04/PAT_woman_bg-2-350x211.png 350w, http://quantumfoundation.eu/wp-content/uploads/2018/04/PAT_woman_bg-2-300x181.png 300w, http://quantumfoundation.eu/wp-content/uploads/2018/04/PAT_woman_bg-2-768x463.png 768w, http://quantumfoundation.eu/wp-content/uploads/2018/04/PAT_woman_bg-2.png 918w" sizes="100vw" />				</a>
+			</div>
+		
+		<div class="wp-embed-excerpt"><p>Advancements in neuroimaging technologies has lead to the emergence of multimodal hybrid techniques that combine innate advantages of the modalities used in the setup. Most notable bimodal and trimodal hybrids ARE: Single Photon Emission Computed Tomography / Computed Tomography (SPECT/CT) [O’Connor 2006] Positron Emission Tomography / CT (PET/CT) [Townsend 2008] PET / Magnetic Resonance Imaging &hellip; <a href="../index.html" class="wp-embed-more" target="_top">Continue reading <span class="screen-reader-text">Neuroimages technologies</span></a></p>
+</div>
+
+		
+		<div class="wp-embed-footer">
+			<div class="wp-embed-site-title"><a href="../../../index.html" target="_top"><img src="../../../wp-content/uploads/2017/04/cropped-15439887_344019795965021_7693791994503993402_n-3-100x100.png" srcset="http://quantumfoundation.eu/wp-content/uploads/2017/04/cropped-15439887_344019795965021_7693791994503993402_n-3-100x100.png 2x" width="32" height="32" alt="" class="wp-embed-site-icon"/><span>Quantum Foundation</span></a></div>
+			<div class="wp-embed-meta">
+					<div class="wp-embed-comments">
+		<a href="../index.html#respond" target="_top">
+			<span class="dashicons dashicons-admin-comments"></span>
+			0 <span class="screen-reader-text">Comments</span>		</a>
+	</div>
+		<div class="wp-embed-share">
+		<button type="button" class="wp-embed-share-dialog-open" aria-label="Open sharing dialog">
+			<span class="dashicons dashicons-share"></span>
+		</button>
+	</div>
+				</div>
+		</div>
+	</div>
+	<div class="wp-embed-share-dialog hidden" role="dialog" aria-label="Sharing options">
+		<div class="wp-embed-share-dialog-content">
+			<div class="wp-embed-share-dialog-text">
+				<ul class="wp-embed-share-tabs" role="tablist">
+					<li class="wp-embed-share-tab-button wp-embed-share-tab-button-wordpress" role="presentation">
+						<button type="button" role="tab" aria-controls="wp-embed-share-tab-wordpress" aria-selected="true" tabindex="0">WordPress Embed</button>
+					</li>
+					<li class="wp-embed-share-tab-button wp-embed-share-tab-button-html" role="presentation">
+						<button type="button" role="tab" aria-controls="wp-embed-share-tab-html" aria-selected="false" tabindex="-1">HTML Embed</button>
+					</li>
+				</ul>
+				<div id="wp-embed-share-tab-wordpress" class="wp-embed-share-tab" role="tabpanel" aria-hidden="false">
+					<input type="text" value="http://quantumfoundation.eu/en/neuroimages_technologies/" class="wp-embed-share-input" aria-describedby="wp-embed-share-description-wordpress" tabindex="0" readonly/>
+
+					<p class="wp-embed-share-description" id="wp-embed-share-description-wordpress">
+						Copy and paste this URL into your WordPress site to embed					</p>
+				</div>
+				<div id="wp-embed-share-tab-html" class="wp-embed-share-tab" role="tabpanel" aria-hidden="true">
+					<textarea class="wp-embed-share-input" aria-describedby="wp-embed-share-description-html" tabindex="0" readonly>&lt;blockquote class=&quot;wp-embedded-content&quot;&gt;&lt;a href=&quot;http://quantumfoundation.eu/en/neuroimages_technologies/&quot;&gt;Neuroimages technologies&lt;/a&gt;&lt;/blockquote&gt;
+&lt;script type=&#039;text/javascript&#039;&gt;
+&lt;!--//--&gt;&lt;![CDATA[//&gt;&lt;!--
+/**
+ * WordPress inline HTML embed
+ *
+ * @since 4.4.0
+ *
+ * This file cannot have ampersands in it. This is to ensure
+ * it can be embedded in older versions of WordPress.
+ * See https://core.trac.wordpress.org/changeset/35708.
+ */
+(function ( window, document ) {
+	&#039;use strict&#039;;
+
+	var supportedBrowser = false,
+		loaded = false;
+
+		if ( document.querySelector ) {
+			if ( window.addEventListener ) {
+				supportedBrowser = true;
+			}
+		}
+
+	/** @namespace wp */
+	window.wp = window.wp || {};
+
+	if ( !! window.wp.receiveEmbedMessage ) {
+		return;
+	}
+
+	window.wp.receiveEmbedMessage = function( e ) {
+		var data = e.data;
+
+		if ( ! data ) {
+			return;
+		}
+
+		if ( ! ( data.secret || data.message || data.value ) ) {
+			return;
+		}
+
+		if ( /[^a-zA-Z0-9]/.test( data.secret ) ) {
+			return;
+		}
+
+		var iframes = document.querySelectorAll( &#039;iframe[data-secret=&quot;&#039; + data.secret + &#039;&quot;]&#039; ),
+			blockquotes = document.querySelectorAll( &#039;blockquote[data-secret=&quot;&#039; + data.secret + &#039;&quot;]&#039; ),
+			i, source, height, sourceURL, targetURL;
+
+		for ( i = 0; i &lt; blockquotes.length; i++ ) {
+			blockquotes[ i ].style.display = &#039;none&#039;;
+		}
+
+		for ( i = 0; i &lt; iframes.length; i++ ) {
+			source = iframes[ i ];
+
+			if ( e.source !== source.contentWindow ) {
+				continue;
+			}
+
+			source.removeAttribute( &#039;style&#039; );
+
+			/* Resize the iframe on request. */
+			if ( &#039;height&#039; === data.message ) {
+				height = parseInt( data.value, 10 );
+				if ( height &gt; 1000 ) {
+					height = 1000;
+				} else if ( ~~height &lt; 200 ) {
+					height = 200;
+				}
+
+				source.height = height;
+			}
+
+			/* Link to a specific URL on request. */
+			if ( &#039;link&#039; === data.message ) {
+				sourceURL = document.createElement( &#039;a&#039; );
+				targetURL = document.createElement( &#039;a&#039; );
+
+				sourceURL.href = source.getAttribute( &#039;src&#039; );
+				targetURL.href = data.value;
+
+				/* Only continue if link hostname matches iframe&#039;s hostname. */
+				if ( targetURL.host === sourceURL.host ) {
+					if ( document.activeElement === source ) {
+						window.top.location.href = data.value;
+					}
+				}
+			}
+		}
+	};
+
+	function onLoad() {
+		if ( loaded ) {
+			return;
+		}
+
+		loaded = true;
+
+		var isIE10 = -1 !== navigator.appVersion.indexOf( &#039;MSIE 10&#039; ),
+			isIE11 = !!navigator.userAgent.match( /Trident.*rv:11\./ ),
+			iframes = document.querySelectorAll( &#039;iframe.wp-embedded-content&#039; ),
+			iframeClone, i, source, secret;
+
+		for ( i = 0; i &lt; iframes.length; i++ ) {
+			source = iframes[ i ];
+
+			if ( ! source.getAttribute( &#039;data-secret&#039; ) ) {
+				/* Add secret to iframe */
+				secret = Math.random().toString( 36 ).substr( 2, 10 );
+				source.src += &#039;#?secret=&#039; + secret;
+				source.setAttribute( &#039;data-secret&#039;, secret );
+			}
+
+			/* Remove security attribute from iframes in IE10 and IE11. */
+			if ( ( isIE10 || isIE11 ) ) {
+				iframeClone = source.cloneNode( true );
+				iframeClone.removeAttribute( &#039;security&#039; );
+				source.parentNode.replaceChild( iframeClone, source );
+			}
+		}
+	}
+
+	if ( supportedBrowser ) {
+		window.addEventListener( &#039;message&#039;, window.wp.receiveEmbedMessage, false );
+		document.addEventListener( &#039;DOMContentLoaded&#039;, onLoad, false );
+		window.addEventListener( &#039;load&#039;, onLoad, false );
+	}
+})( window, document );
+
+//--&gt;&lt;!]]&gt;
+&lt;/script&gt;&lt;iframe sandbox=&quot;allow-scripts&quot; security=&quot;restricted&quot; src=&quot;http://quantumfoundation.eu/en/neuroimages_technologies/embed/&quot; width=&quot;600&quot; height=&quot;400&quot; title=&quot;&amp;#8220;Neuroimages technologies&amp;#8221; &amp;#8212; Quantum Foundation&quot; frameborder=&quot;0&quot; marginwidth=&quot;0&quot; marginheight=&quot;0&quot; scrolling=&quot;no&quot; class=&quot;wp-embedded-content&quot;&gt;&lt;/iframe&gt;</textarea>
+
+					<p class="wp-embed-share-description" id="wp-embed-share-description-html">
+						Copy and paste this code into your site to embed					</p>
+				</div>
+			</div>
+
+			<button type="button" class="wp-embed-share-dialog-close" aria-label="Close sharing dialog">
+				<span class="dashicons dashicons-no"></span>
+			</button>
+		</div>
+	</div>
+		<script type="text/javascript">
+	(function ( window, document ) {
+	'use strict';
+
+	var supportedBrowser = ( document.querySelector && window.addEventListener ),
+		loaded = false,
+		secret,
+		secretTimeout,
+		resizing;
+
+	function sendEmbedMessage( message, value ) {
+		window.parent.postMessage( {
+			message: message,
+			value: value,
+			secret: secret
+		}, '*' );
+	}
+
+	function onLoad() {
+		if ( loaded ) {
+			return;
+		}
+		loaded = true;
+
+		var share_dialog = document.querySelector( '.wp-embed-share-dialog' ),
+			share_dialog_open = document.querySelector( '.wp-embed-share-dialog-open' ),
+			share_dialog_close = document.querySelector( '.wp-embed-share-dialog-close' ),
+			share_input = document.querySelectorAll( '.wp-embed-share-input' ),
+			share_dialog_tabs = document.querySelectorAll( '.wp-embed-share-tab-button button' ),
+			featured_image = document.querySelector( '.wp-embed-featured-image img' ),
+			i;
+
+		if ( share_input ) {
+			for ( i = 0; i < share_input.length; i++ ) {
+				share_input[ i ].addEventListener( 'click', function ( e ) {
+					e.target.select();
+				} );
+			}
+		}
+
+		function openSharingDialog() {
+			share_dialog.className = share_dialog.className.replace( 'hidden', '' );
+			// Initial focus should go on the currently selected tab in the dialog.
+			document.querySelector( '.wp-embed-share-tab-button [aria-selected="true"]' ).focus();
+		}
+
+		function closeSharingDialog() {
+			share_dialog.className += ' hidden';
+			document.querySelector( '.wp-embed-share-dialog-open' ).focus();
+		}
+
+		if ( share_dialog_open ) {
+			share_dialog_open.addEventListener( 'click', function () {
+				openSharingDialog();
+			} );
+		}
+
+		if ( share_dialog_close ) {
+			share_dialog_close.addEventListener( 'click', function () {
+				closeSharingDialog();
+			} );
+		}
+
+		function shareClickHandler( e ) {
+			var currentTab = document.querySelector( '.wp-embed-share-tab-button [aria-selected="true"]' );
+			currentTab.setAttribute( 'aria-selected', 'false' );
+			document.querySelector( '#' + currentTab.getAttribute( 'aria-controls' ) ).setAttribute( 'aria-hidden', 'true' );
+
+			e.target.setAttribute( 'aria-selected', 'true' );
+			document.querySelector( '#' + e.target.getAttribute( 'aria-controls' ) ).setAttribute( 'aria-hidden', 'false' );
+		}
+
+		function shareKeyHandler( e ) {
+			var target = e.target,
+				previousSibling = target.parentElement.previousElementSibling,
+				nextSibling = target.parentElement.nextElementSibling,
+				newTab, newTabChild;
+
+			if ( 37 === e.keyCode ) {
+				newTab = previousSibling;
+			} else if ( 39 === e.keyCode ) {
+				newTab = nextSibling;
+			} else {
+				return false;
+			}
+
+			if ( 'rtl' === document.documentElement.getAttribute( 'dir' ) ) {
+				newTab = ( newTab === previousSibling ) ? nextSibling : previousSibling;
+			}
+
+			if ( newTab ) {
+				newTabChild = newTab.firstElementChild;
+
+				target.setAttribute( 'tabindex', '-1' );
+				target.setAttribute( 'aria-selected', false );
+				document.querySelector( '#' + target.getAttribute( 'aria-controls' ) ).setAttribute( 'aria-hidden', 'true' );
+
+				newTabChild.setAttribute( 'tabindex', '0' );
+				newTabChild.setAttribute( 'aria-selected', 'true' );
+				newTabChild.focus();
+				document.querySelector( '#' + newTabChild.getAttribute( 'aria-controls' ) ).setAttribute( 'aria-hidden', 'false' );
+			}
+		}
+
+		if ( share_dialog_tabs ) {
+			for ( i = 0; i < share_dialog_tabs.length; i++ ) {
+				share_dialog_tabs[ i ].addEventListener( 'click', shareClickHandler );
+
+				share_dialog_tabs[ i ].addEventListener( 'keydown', shareKeyHandler );
+			}
+		}
+
+		document.addEventListener( 'keydown', function ( e ) {
+			if ( 27 === e.keyCode && -1 === share_dialog.className.indexOf( 'hidden' ) ) {
+				closeSharingDialog();
+			} else if ( 9 === e.keyCode ) {
+				constrainTabbing( e );
+			}
+		}, false );
+
+		function constrainTabbing( e ) {
+			// Need to re-get the selected tab each time.
+			var firstFocusable = document.querySelector( '.wp-embed-share-tab-button [aria-selected="true"]' );
+
+			if ( share_dialog_close === e.target && ! e.shiftKey ) {
+				firstFocusable.focus();
+				e.preventDefault();
+			} else if ( firstFocusable === e.target && e.shiftKey ) {
+				share_dialog_close.focus();
+				e.preventDefault();
+			}
+		}
+
+		if ( window.self === window.top ) {
+			return;
+		}
+
+		/**
+		 * Send this document's height to the parent (embedding) site.
+		 */
+		sendEmbedMessage( 'height', Math.ceil( document.body.getBoundingClientRect().height ) );
+
+		// Send the document's height again after the featured image has been loaded.
+		if ( featured_image ) {
+			featured_image.addEventListener( 'load', function() {
+				sendEmbedMessage( 'height', Math.ceil( document.body.getBoundingClientRect().height ) );
+			} );
+		}
+
+		/**
+		 * Detect clicks to external (_top) links.
+		 */
+		function linkClickHandler( e ) {
+			var target = e.target,
+				href;
+			if ( target.hasAttribute( 'href' ) ) {
+				href = target.getAttribute( 'href' );
+			} else {
+				href = target.parentElement.getAttribute( 'href' );
+			}
+
+			/**
+			 * Send link target to the parent (embedding) site.
+			 */
+			if ( href ) {
+				sendEmbedMessage( 'link', href );
+				e.preventDefault();
+			}
+		}
+
+		document.addEventListener( 'click', linkClickHandler );
+	}
+
+	/**
+	 * Iframe resize handler.
+	 */
+	function onResize() {
+		if ( window.self === window.top ) {
+			return;
+		}
+
+		clearTimeout( resizing );
+
+		resizing = setTimeout( function () {
+			sendEmbedMessage( 'height', Math.ceil( document.body.getBoundingClientRect().height ) );
+		}, 100 );
+	}
+
+	/**
+	 * Re-get the secret when it was added later on.
+	 */
+	function getSecret() {
+		if ( window.self === window.top || !!secret ) {
+			return;
+		}
+
+		secret = window.location.hash.replace( /.*secret=([\d\w]{10}).*/, '$1' );
+
+		clearTimeout( secretTimeout );
+
+		secretTimeout = setTimeout( function () {
+			getSecret();
+		}, 100 );
+	}
+
+	if ( supportedBrowser ) {
+		getSecret();
+		document.documentElement.className = document.documentElement.className.replace( /\bno-js\b/, '' ) + ' js';
+		document.addEventListener( 'DOMContentLoaded', onLoad, false );
+		window.addEventListener( 'load', onLoad, false );
+		window.addEventListener( 'resize', onResize, false );
+	}
+})( window, document );
+	</script>
+	</body>
+
+<!-- Mirrored from quantumfoundation.eu/en/neuroimages_technologies/embed/ by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 25 Apr 2020 15:33:16 GMT -->
+</html>
